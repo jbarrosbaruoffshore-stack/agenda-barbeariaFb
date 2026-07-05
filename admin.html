@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153d31"><title>Admin — Barbearia do FB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="login-shell" id="loginView">
+    <form class="card login-card" id="loginForm">
+      <a class="brand" href="index.html"><span class="mark"><img src="https://jbarrosbaruoffshore-stack.github.io/agenda-barbeariaFb/logo-barbearia-fb.png" alt="Logo Barbearia do FB"></span><span><strong>Barbearia do FB</strong><small>Painel protegido</small></span></a>
+      <h1>Entrar como administrador</h1><p>Use o e-mail e a senha cadastrados no Supabase. Clientes não acessam esta área.</p>
+      <div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button class="primary" type="submit">Entrar</button><p class="notice error hidden" id="loginMessage"></p>
+    </form>
+  </section>
+  <section class="admin-shell hidden" id="adminView">
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><span class="mark"><img src="https://jbarrosbaruoffshore-stack.github.io/agenda-barbeariaFb/logo-barbearia-fb.png" alt="Logo Barbearia do FB"></span><span><strong>Barbearia do FB</strong><small>Administração</small></span></a>
+      <nav class="nav"><button class="active" data-view="agenda">Agenda</button><button data-view="services">Serviços</button><button data-view="hours">Funcionamento</button><button data-view="settings">Configurações</button></nav>
+      <div class="sidebar-foot"><button class="ghost" id="logout">Sair</button></div>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-top"><div><h1 id="adminTitle">Agenda</h1><p id="adminSubtitle">Horários e clientes marcados.</p></div><a class="ghost" href="index.html">Ver site do cliente</a></header>
+      <section id="agendaPanel">
+        <div class="stats"><article class="stat"><span>Agendamentos</span><strong id="bookingCount">0</strong></article><article class="stat"><span>Horários livres</span><strong id="freeCount">0</strong></article><article class="stat"><span>Dia selecionado</span><strong id="dayLabel">—</strong></article></div>
+        <section class="card"><div class="toolbar"><input type="date" id="adminDate"><button class="primary" id="shareWhatsapp">Compartilhar agenda no WhatsApp</button></div><div class="appointments" id="appointments"><div class="empty">Carregando…</div></div></section>
+      </section>
+      <section class="hidden" id="servicesPanel">
+        <section class="card">
+          <div class="card-head"><div><span class="step">Catálogo</span><h2>Cortes e serviços</h2></div><button class="primary" id="newService" type="button">Novo serviço</button></div>
+          <form class="service-form hidden" id="serviceForm">
+            <input type="hidden" id="serviceId">
+            <div class="field"><label for="serviceName">Nome do serviço</label><input id="serviceName" maxlength="60" required placeholder="Ex.: Corte degradê"></div>
+            <div class="field"><label for="servicePrice">Valor (R$)</label><input id="servicePrice" type="number" min="0" step="0.01" required></div>
+            <div class="field"><label for="serviceDuration">Duração</label><select id="serviceDuration"><option value="30">30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option></select></div>
+            <div class="service-form-actions"><button class="ghost" id="cancelService" type="button">Cancelar</button><button class="primary" type="submit">Salvar serviço</button></div>
+          </form>
+          <div class="service-list" id="serviceList"><div class="empty">Carregando serviços…</div></div>
+        </section>
+      </section>
+      <section class="hidden" id="hoursPanel">
+        <section class="card"><div class="card-head"><div><span class="step">Calendário</span><h2>Dias de funcionamento</h2></div><button class="primary" id="saveHours">Salvar horários</button></div><div class="hours" id="hours"></div>
+          <div class="closures"><input type="date" id="closureDate"><button class="danger" id="addClosure">Fechar esta data</button></div><div class="chips" id="closures"></div><p class="notice">Use as datas fechadas para feriados, férias ou manutenção.</p>
+        </section>
+      </section>
+      <section class="hidden" id="settingsPanel">
+        <form class="card" id="settingsForm"><div class="card-head"><div><span class="step">Loja</span><h2>Configurações</h2></div></div>
+          <div class="field"><label for="businessName">Nome da barbearia</label><input id="businessName"></div>
+          <div class="field"><label for="whatsapp">WhatsApp (com DDI e DDD)</label><input id="whatsapp" placeholder="5521999999999"></div>
+          <div class="field"><label for="slotMinutes">Duração de cada horário</label><select id="slotMinutes"><option value="30">30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option></select></div>
+          <button class="primary" type="submit">Salvar configurações</button><p class="notice hidden" id="settingsMessage"></p>
+        </form>
+      </section>
+    </main>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script><script src="admin.js"></script>
+</body>
+</html>
